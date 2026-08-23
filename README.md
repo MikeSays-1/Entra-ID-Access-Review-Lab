@@ -42,6 +42,11 @@ The initial review established the current Finance access population and provide
 
 <img src="images/step1.png" width="70%">
 
+```powershell
+$financegroup = get-mggroup -all | where-object displayname -eq "SG-Finance"
+get-mggroupmember -groupid $financegroup.id | foreach-object { get-mguser -userid $_.id -property displayname,userprincipalname,department,jobtitle } | select-object displayname,userprincipalname,department,jobtitle
+```
+
 > [!NOTE]
 > Access reviews help organizations periodically validate that existing permissions remain appropriate rather than assuming previously granted access is still required.
 
@@ -53,6 +58,12 @@ To simulate a stale-access scenario, I updated Emily Carter's department and job
 I then performed the Finance access review again. Emily Carter was identified as an access exception because her current identity attributes showed HR / HR Specialist while she remained a member of SG-Finance.
 
 <img src="images/step2.png" width="70%">
+
+```powershell
+$emily = get-mguser -all | where-object displayname -eq "Emily Carter"
+update-mguser -userid $emily.id -department "HR" -jobtitle "HR Specialist"
+get-mggroupmember -groupid $financegroup.id | foreach-object { get-mguser -userid $_.id -property displayname,userprincipalname,department,jobtitle } | select-object displayname,userprincipalname,department,jobtitle
+```
 
 Based on the user's current role and department, the certification decision for Emily's SG-Finance access was:
 
@@ -71,6 +82,11 @@ Following the certification decision, I removed Emily Carter from SG-Finance usi
 I then reran the Finance membership report to verify that the inappropriate access had been successfully removed while the appropriate Finance users retained their existing access.
 
 <img src="images/step3.png" width="70%">
+
+```powershell
+remove-mggroupmemberbyref -groupid $financegroup.id -directoryobjectid $emily.id
+get-mggroupmember -groupid $financegroup.id | foreach-object { get-mguser -userid $_.id -property displayname,userprincipalname,department,jobtitle } | select-object displayname,userprincipalname,department,jobtitle
+```
 
 The final membership review confirmed that Emily Carter was no longer a member of SG-Finance.
 
