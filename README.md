@@ -8,7 +8,7 @@ In this lab, I performed a quarterly access review of a Finance security group i
 
 <h2>Environments and Technologies Used</h2>
 
-<img src="images/entra-skill-3.png" width="48px">&nbsp;&nbsp;<img src="https://skillicons.dev/icons?i=powershell"> 
+<img src="images/entra-skill-3.png" width="49px">&nbsp;&nbsp;<img src="https://skillicons.dev/icons?i=powershell"> 
 
 - Microsoft Entra ID
 - Microsoft Graph PowerShell
