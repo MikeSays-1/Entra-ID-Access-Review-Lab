@@ -64,9 +64,14 @@ I then performed the Finance access review again. Emily Carter was identified as
 <img src="images/step2.png" width="70%">
 
 ```powershell
-$emily = get-mguser -all | where-object displayname -eq "Emily Carter"
+$emily = get-mguser -all |
+where-object displayname -eq "Emily Carter"
+
 update-mguser -userid $emily.id -department "HR" -jobtitle "HR Specialist"
-get-mggroupmember -groupid $financegroup.id | foreach-object { get-mguser -userid $_.id -property displayname,userprincipalname,department,jobtitle } | select-object displayname,userprincipalname,department,jobtitle
+
+get-mggroupmember -groupid $financegroup.id |
+foreach-object { get-mguser -userid $_.id -property displayname,userprincipalname,department,jobtitle } |
+select-object displayname,userprincipalname,department,jobtitle
 ```
 
 Based on the user's current role and department, the certification decision for Emily's SG-Finance access was:
@@ -89,7 +94,10 @@ I then reran the Finance membership report to verify that the inappropriate acce
 
 ```powershell
 remove-mggroupmemberbyref -groupid $financegroup.id -directoryobjectid $emily.id
-get-mggroupmember -groupid $financegroup.id | foreach-object { get-mguser -userid $_.id -property displayname,userprincipalname,department,jobtitle } | select-object displayname,userprincipalname,department,jobtitle
+
+get-mggroupmember -groupid $financegroup.id |
+foreach-object { get-mguser -userid $_.id -property displayname,userprincipalname,department,jobtitle } |
+select-object displayname,userprincipalname,department,jobtitle
 ```
 
 The final membership review confirmed that Emily Carter was no longer a member of SG-Finance.
