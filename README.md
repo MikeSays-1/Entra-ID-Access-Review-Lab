@@ -1,3 +1,7 @@
+<p align="center">
+<img src="images/entra-id.png">
+</p>
+
 <h1>Microsoft Entra ID - Access Review & Certification</h1>
 
 In this lab, I performed a quarterly access review of a Finance security group in Microsoft Entra ID. I reviewed existing group membership against current user attributes, identified inappropriate access caused by a role change, made an access certification decision, and remediated the stale access using Microsoft Graph PowerShell. <br />
