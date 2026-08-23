@@ -43,8 +43,12 @@ The initial review established the current Finance access population and provide
 <img src="images/step1.png" width="70%">
 
 ```powershell
-$financegroup = get-mggroup -all | where-object displayname -eq "SG-Finance"
-get-mggroupmember -groupid $financegroup.id | foreach-object { get-mguser -userid $_.id -property displayname,userprincipalname,department,jobtitle } | select-object displayname,userprincipalname,department,jobtitle
+$financegroup = get-mggroup -all |
+where-object displayname -eq "SG-Finance"
+
+get-mggroupmember -groupid $financegroup.id |
+foreach-object { get-mguser -userid $_.id -property displayname,userprincipalname,department,jobtitle } |
+select-object displayname,userprincipalname,department,jobtitle
 ```
 
 > [!NOTE]
